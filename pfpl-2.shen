@@ -44,4 +44,4 @@
   __________________________
   [sum [succ A] B [succ C]] : fun-proof;)
 
-// TODO modes
+\\ TODO modes

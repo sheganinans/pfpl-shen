@@ -22,13 +22,13 @@
   _____________________________________________________
   [[plus [num N1] [num N2]] ~> 1 [num N]] : transition;
 
-  [E1 ~> 1 E1'] : transition;
+  [E1 ~> 1 E1*] : transition;
   _______________________________________________
-  [[plus E1 E2] ~> 1 [plus E1' E2]] : transition;
+  [[plus E1 E2] ~> 1 [plus E1* E2]] : transition;
 
-  [E2 ~> 1 E2'] : transition;
+  [E2 ~> 1 E2*] : transition;
   _________________________________________________________
-  [[plus [num N] E2] ~> 1 [plus [num N] E2']] : transition;)
+  [[plus [num N] E2] ~> 1 [plus [num N] E2*]] : transition;)
 
 
 (datatype ctx-dyn
@@ -47,26 +47,26 @@
 
   C : ectxt;
   E : num-expr;
-  ____________________
+  __________________
   [ctx C E] : ctx-c;
 
   ____________________
   [E eq [ctx o E]] : judgem;
 
   [E1 eq [ctx E1ctx E]] : judgem;
-  ______________
+  ___________________________________________________
   [[plus E1 E2] eq [ctx [plus E1ctx E2] E]] : judgem;
 
   [E2 eq [ctx E2ctx E]] : judgem;
-  ______________
+  __________________________________________________________
   [[plus [num N] E2] eq [ctx [plus [num N] E2] E]] : judgem;
 
 
   [E eq [ctx Ectx E0]] : judgem;
-  [E0 ~> 1 E0'] : transition;
-  [E' eq [ctx Ectx E0']] : judgem;
-  ______________
-  [E ~> 1 E'] : transition;)
+  [E0 ~> 1 E0*] : transition;
+  [E* eq [ctx Ectx E0*]] : judgem;
+  _________________________
+  [E ~> 1 E*] : transition;)
 
 
 (datatype fun-eq
@@ -76,19 +76,19 @@
   [E eq E] : (eq T);
 
 
-  [E1 eq E1'] : (eq num); [E2 eq E2'] : (eq num);
+  [E1 eq E1*] : (eq num); [E2 eq E2*] : (eq num);
   ============================================
-  [[plus E1 E2] eq [plus E1' E2']] : (eq num);
+  [[plus E1 E2] eq [plus E1* E2*]] : (eq num);
   
-  [E1 eq E1'] : (eq str); [E2 eq E2'] : (eq str);
+  [E1 eq E1*] : (eq str); [E2 eq E2*] : (eq str);
   ==========================================
-  [[cat E1 E2] eq [cat E1' E2']] : (eq str);
+  [[cat E1 E2] eq [cat E1* E2*]] : (eq str);
   
 
-  [E1 eq E1'] : (eq T1);
-  X : T1 >> [E2 eq E2'] : (eq T2);
+  [E1 eq E1*] : (eq T1);
+  X : T1 >> [E2 eq E2*] : (eq T2);
   _____________________________________________
-  [[let E1 X E2] eq [let E1' X E2']] : (eq T2);
+  [[let E1 X E2] eq [let E1* X E2*]] : (eq T2);
 
   if (= N (+ N1 N2))
   _________________________________________________
